@@ -28,6 +28,7 @@ class StartFrankenPhpCommand extends Command implements SignalableCommandInterfa
                     {--host=127.0.0.1 : The IP address the server should bind to}
                     {--port= : The port the server should be available on}
                     {--admin-port= : The port the admin server should be available on}
+                    {--admin-host= : The host the admin server should be availble on}
                     {--workers=auto : The number of workers that should be available to handle requests}
                     {--max-requests=500 : The number of requests to process before reloading the server}
                     {--caddyfile= : The path to the FrankenPHP Caddyfile file}
@@ -97,6 +98,7 @@ class StartFrankenPhpCommand extends Command implements SignalableCommandInterfa
             'REQUEST_MAX_EXECUTION_TIME' => $this->maxExecutionTime(),
             'CADDY_GLOBAL_OPTIONS' => ($https && $this->option('http-redirect')) ? '' : 'auto_https disable_redirects',
             'CADDY_SERVER_ADMIN_PORT' => $this->adminPort(),
+            'CADDY_SERVER_ADMIN_HOST' => $this->adminHost(),
             'CADDY_SERVER_LOG_LEVEL' => $this->option('log-level') ?: (app()->environment('local') ? 'INFO' : 'WARN'),
             'CADDY_SERVER_LOGGER' => 'json',
             'CADDY_SERVER_SERVER_NAME' => $serverName,
@@ -210,6 +212,7 @@ class StartFrankenPhpCommand extends Command implements SignalableCommandInterfa
             'host' => $this->getHost(),
             'port' => $this->getPort(),
             'adminPort' => $this->adminPort(),
+            'adminHost' => $this->adminHost(),
             'workers' => $this->workerCount(),
             'maxRequests' => $this->option('max-requests'),
             'octaneConfig' => config('octane'),
@@ -236,6 +239,21 @@ class StartFrankenPhpCommand extends Command implements SignalableCommandInterfa
                 );
             }
         });
+    }
+    
+    /**
+     * Get the host the admin API should be available on.
+     *
+     * @return string
+     */
+    protected function adminHost()
+    {
+        if ($this->option('admin-host')) {
+            return (string) $this->option('admin-host');
+        }
+
+        return 'localhost';
+        
     }
 
     /**
