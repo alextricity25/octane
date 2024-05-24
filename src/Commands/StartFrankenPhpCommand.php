@@ -240,7 +240,7 @@ class StartFrankenPhpCommand extends Command implements SignalableCommandInterfa
             }
         });
     }
-    
+
     /**
      * Get the host the admin API should be available on.
      *
@@ -253,7 +253,6 @@ class StartFrankenPhpCommand extends Command implements SignalableCommandInterfa
         }
 
         return 'localhost';
-        
     }
 
     /**
