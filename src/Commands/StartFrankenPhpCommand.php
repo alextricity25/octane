@@ -27,8 +27,8 @@ class StartFrankenPhpCommand extends Command implements SignalableCommandInterfa
     public $signature = 'octane:frankenphp
                     {--host=127.0.0.1 : The IP address the server should bind to}
                     {--port= : The port the server should be available on}
+                    {--admin-host=localhost : The host the admin server should be available on}
                     {--admin-port= : The port the admin server should be available on}
-                    {--admin-host=localhost : The host the admin server should be availble on}
                     {--workers=auto : The number of workers that should be available to handle requests}
                     {--max-requests=500 : The number of requests to process before reloading the server}
                     {--caddyfile= : The path to the FrankenPHP Caddyfile file}
